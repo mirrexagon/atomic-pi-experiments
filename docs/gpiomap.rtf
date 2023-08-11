@@ -1,0 +1,235 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sl276\slmult1\f0\fs24\lang9 AAEON board GPIO information 12/20/2018\par
+\par
+Example to talk to the GPIO pins from root (sudo -s pawd=user)\par
+echo 346 > /sys/class/gpio/export\tab\tab\tab\tab // creates a "gpio346" folder under gpio\par
+echo out > /sys/class/gpio/gpio346/direction\tab\tab // sets the direction (in or out)\par
+echo 0 > /sys/class/gpio/gpio346/value\tab\tab\tab // drives the pin low\par
+cat /sys/class/gpio/gpio346/value\tab\tab\tab\tab // reads the pin back (when used as an input)\par
+346 is on the north pins, base = 341, offset = 5, connected to the VOL DOWN pin.\par
+Get the offset from the list below, the number after the opening parenthesis.\par
+UARTs seem to be programmed as UARTs and not usable as GPIO upon power up.\par
+\par
+LIST OF GPIO PINS, most not on headers etc.\par
+static const struct pinctrl_pin_desc southwest_pins[] = \{\tab // BASE = 414 \tab\tab  56 gpio's\par
+\tab PINCTRL_PIN(0, "FST_SPI_D2"),\par
+\tab PINCTRL_PIN(1, "FST_SPI_D0"),\par
+\tab PINCTRL_PIN(2, "FST_SPI_CLK"),\par
+\tab PINCTRL_PIN(3, "FST_SPI_D3"),\par
+\tab PINCTRL_PIN(4, "FST_SPI_CS1_B"),\par
+\tab PINCTRL_PIN(5, "FST_SPI_D1"),\par
+\tab PINCTRL_PIN(6, "FST_SPI_CS0_B"),\par
+\tab PINCTRL_PIN(7, "FST_SPI_CS2_B"),\par
+\par
+\tab PINCTRL_PIN(15, "UART1_RTS_B"),\tab\tab\tab // UART addresses not verified\par
+\tab PINCTRL_PIN(16, "UART1_RXD"),\tab\tab\tab // UART1 26 pin ->16, screw terminal ->1, addr = 430\par
+\tab PINCTRL_PIN(17, "UART2_RXD"),\tab\tab\tab // UART2 26 pin ->23, screw terminal ->8, addr = 431\par
+\tab PINCTRL_PIN(18, "UART1_CTS_B"),\par
+\tab PINCTRL_PIN(19, "UART2_RTS_B"),\par
+\tab PINCTRL_PIN(20, "UART1_TXD"),\tab\tab\tab // UART1 26 pin ->15, screw terminal ->2, addr = 434\par
+\tab PINCTRL_PIN(21, "UART2_TXD"),\tab\tab\tab // UART2 26 pin ->22, screw terminal ->7, addr = 435\par
+\tab PINCTRL_PIN(22, "UART2_CTS_B"),\par
+\par
+\tab PINCTRL_PIN(30, "MF_HDA_CLK"),\par
+\tab PINCTRL_PIN(31, "MF_HDA_RSTB"),\par
+\tab PINCTRL_PIN(32, "MF_HDA_SDIO"),\par
+\tab PINCTRL_PIN(33, "MF_HDA_SDO"),\par
+\tab PINCTRL_PIN(34, "MF_HDA_DOCKRSTB"),\par
+\tab PINCTRL_PIN(35, "MF_HDA_SYNC"),\par
+\tab PINCTRL_PIN(36, "MF_HDA_SDI1"),\par
+\tab PINCTRL_PIN(37, "MF_HDA_DOCKENB"),\par
+\par
+\tab PINCTRL_PIN(45, "I2C5_SDA"),\par
+\tab PINCTRL_PIN(46, "I2C4_SDA"),\par
+\tab PINCTRL_PIN(47, "I2C6_SDA"),\par
+\tab PINCTRL_PIN(48, "I2C5_SCL"),\par
+\tab PINCTRL_PIN(49, "I2C_NFC_SDA"),\par
+\tab PINCTRL_PIN(50, "I2C4_SCL"),\par
+\tab PINCTRL_PIN(51, "I2C6_SCL"),\par
+\tab PINCTRL_PIN(52, "I2C_NFC_SCL"),\par
+\par
+\tab PINCTRL_PIN(60, "I2C1_SDA"),\par
+\tab PINCTRL_PIN(61, "I2C0_SDA"),\par
+\tab PINCTRL_PIN(62, "I2C2_SDA"),\tab\tab\tab // BNO055 I2C - SDA, addr = 476\par
+\tab PINCTRL_PIN(63, "I2C1_SCL"),\par
+\tab PINCTRL_PIN(64, "I2C3_SDA"),\par
+\tab PINCTRL_PIN(65, "I2C0_SCL"),\par
+\tab PINCTRL_PIN(66, "I2C2_SCL"),\tab\tab\tab // BNO055 I2C - SCL, addr = 480\par
+\tab PINCTRL_PIN(67, "I2C3_SCL"),\par
+\par
+\tab PINCTRL_PIN(75, "SATA_GP0"),\par
+\tab PINCTRL_PIN(76, "SATA_GP1"),\par
+\tab PINCTRL_PIN(77, "SATA_LEDN"),\par
+\tab PINCTRL_PIN(78, "SATA_GP2"),\par
+\tab PINCTRL_PIN(79, "MF_SMB_ALERTB"),\par
+\tab PINCTRL_PIN(80, "SATA_GP3"),\par
+\tab PINCTRL_PIN(81, "MF_SMB_CLK"),\par
+\tab PINCTRL_PIN(82, "MF_SMB_DATA"),\par
+\par
+\tab PINCTRL_PIN(90, "PCIE_CLKREQ0B"),\par
+\tab PINCTRL_PIN(91, "PCIE_CLKREQ1B"),\par
+\tab PINCTRL_PIN(92, "GP_SSP_2_CLK"),\par
+\tab PINCTRL_PIN(93, "PCIE_CLKREQ2B"),\par
+\tab PINCTRL_PIN(94, "GP_SSP_2_RXD"),\par
+\tab PINCTRL_PIN(95, "PCIE_CLKREQ3B"),\par
+\tab PINCTRL_PIN(96, "GP_SSP_2_FS"),\par
+\tab PINCTRL_PIN(97, "GP_SSP_2_TXD"),\par
+\};\par
+static const struct pinctrl_pin_desc north_pins[] = \{\tab\tab //BASE = 341\tab\tab 59 gpio's\par
+\tab PINCTRL_PIN(0, "GPIO_DFX_0"),\par
+\tab PINCTRL_PIN(1, "GPIO_DFX_3"),\par
+\tab PINCTRL_PIN(2, "GPIO_DFX_7"),\par
+\tab PINCTRL_PIN(3, "GPIO_DFX_1"),\par
+\tab PINCTRL_PIN(4, "GPIO_DFX_5"),\tab\tab\tab // WiFi enable, addr = 345 (not verified)\par
+\tab PINCTRL_PIN(5, "GPIO_DFX_4"),\tab\tab\tab // VOL DWN, on 3-pin header, addr = 346\par
+\tab PINCTRL_PIN(6, "GPIO_DFX_8"),\par
+\tab PINCTRL_PIN(7, "GPIO_DFX_2"),\tab\tab\tab // VOL UP, on 3-pin header, addr = 348\par
+\tab PINCTRL_PIN(8, "GPIO_DFX_6"),\tab\tab\tab // Audio reset, addr = 349 (not verified)\par
+\par
+\tab PINCTRL_PIN(15, "GPIO_SUS0"),\par
+\tab PINCTRL_PIN(16, "SEC_GPIO_SUS10"),\par
+\tab PINCTRL_PIN(17, "GPIO_SUS3"),\tab\tab\tab // BNO055 interrupt pin, addr = 358\par
+\tab PINCTRL_PIN(18, "GPIO_SUS7"),\par
+\tab PINCTRL_PIN(19, "GPIO_SUS1"),\par
+\tab PINCTRL_PIN(20, "GPIO_SUS5"),\par
+\tab PINCTRL_PIN(21, "SEC_GPIO_SUS11"),\par
+\tab PINCTRL_PIN(22, "GPIO_SUS4"),\par
+\tab PINCTRL_PIN(23, "SEC_GPIO_SUS8"),\par
+\tab PINCTRL_PIN(24, "GPIO_SUS2"),\par
+\tab PINCTRL_PIN(25, "GPIO_SUS6"),\tab\tab\tab // BNO055 reset pin, addr = 366\par
+\tab PINCTRL_PIN(26, "CX_PREQ_B"),\par
+\tab PINCTRL_PIN(27, "SEC_GPIO_SUS9"),\par
+\par
+\tab PINCTRL_PIN(30, "TRST_B"),\par
+\tab PINCTRL_PIN(31, "TCK"),\par
+\tab PINCTRL_PIN(32, "PROCHOT_B"),\par
+\tab PINCTRL_PIN(33, "SVIDO_DATA"),\par
+\tab PINCTRL_PIN(34, "TMS"),\par
+\tab PINCTRL_PIN(35, "CX_PRDY_B_2"),\par
+\tab PINCTRL_PIN(36, "TDO_2"),\par
+\tab PINCTRL_PIN(37, "CX_PRDY_B"),\par
+\tab PINCTRL_PIN(38, "SVIDO_ALERT_B"),\par
+\tab PINCTRL_PIN(39, "TDO"),\par
+\tab PINCTRL_PIN(40, "SVIDO_CLK"),\par
+\tab PINCTRL_PIN(41, "TDI"),\par
+\par
+\tab PINCTRL_PIN(45, "GP_CAMERASB_05"),\par
+\tab PINCTRL_PIN(46, "GP_CAMERASB_02"),\par
+\tab PINCTRL_PIN(47, "GP_CAMERASB_08"),\par
+\tab PINCTRL_PIN(48, "GP_CAMERASB_00"),\par
+\tab PINCTRL_PIN(49, "GP_CAMERASB_06"),\par
+\tab PINCTRL_PIN(50, "GP_CAMERASB_10"),\par
+\tab PINCTRL_PIN(51, "GP_CAMERASB_03"),\par
+\tab PINCTRL_PIN(52, "GP_CAMERASB_09"),\par
+\tab PINCTRL_PIN(53, "GP_CAMERASB_01"),\par
+\tab PINCTRL_PIN(54, "GP_CAMERASB_07"),\par
+\tab PINCTRL_PIN(55, "GP_CAMERASB_11"),\par
+\tab PINCTRL_PIN(56, "GP_CAMERASB_04"),\par
+\par
+\tab PINCTRL_PIN(60, "PANEL0_BKLTEN"),\par
+\tab PINCTRL_PIN(61, "HV_DDI0_HPD"),\par
+\tab PINCTRL_PIN(62, "HV_DDI2_DDC_SDA"),\par
+\tab PINCTRL_PIN(63, "PANEL1_BKLTCTL"),\par
+\tab PINCTRL_PIN(64, "HV_DDI1_HPD"),\par
+\tab PINCTRL_PIN(65, "PANEL0_BKLTCTL"),\par
+\tab PINCTRL_PIN(66, "HV_DDI0_DDC_SDA"),\par
+\tab PINCTRL_PIN(67, "HV_DDI2_DDC_SCL"),\par
+\tab PINCTRL_PIN(68, "HV_DDI2_HPD"),\par
+\tab PINCTRL_PIN(69, "PANEL1_VDDEN"),\par
+\tab PINCTRL_PIN(70, "PANEL1_BKLTEN"),\par
+\tab PINCTRL_PIN(71, "HV_DDI0_DDC_SCL"),\par
+\tab PINCTRL_PIN(72, "PANEL0_VDDEN"),\par
+\};\par
+static const struct pinctrl_pin_desc east_pins[] = \{\tab\tab // BASE = 314\tab\tab 24 gpio's\par
+\tab PINCTRL_PIN(0, "PMU_SLP_S3_B"),\par
+\tab PINCTRL_PIN(1, "PMU_BATLOW_B"),\par
+\tab PINCTRL_PIN(2, "SUS_STAT_B"),\par
+\tab PINCTRL_PIN(3, "PMU_SLP_S0IX_B"),\par
+\tab PINCTRL_PIN(4, "PMU_AC_PRESENT"),\par
+\tab PINCTRL_PIN(5, "PMU_PLTRST_B"),\par
+\tab PINCTRL_PIN(6, "PMU_SUSCLK"),\par
+\tab PINCTRL_PIN(7, "PMU_SLP_LAN_B"),\par
+\tab PINCTRL_PIN(8, "PMU_PWRBTN_B"),\par
+\tab PINCTRL_PIN(9, "PMU_SLP_S4_B"),\par
+\tab PINCTRL_PIN(10, "PMU_WAKE_B"),\par
+\tab PINCTRL_PIN(11, "PMU_WAKE_LAN_B"),\par
+\par
+\tab PINCTRL_PIN(15, "MF_ISH_GPIO_3"),\tab\tab // 26 pin ->18, screw terminal ->3, addr = 329\par
+\tab PINCTRL_PIN(16, "MF_ISH_GPIO_7"),\tab\tab // 26 pin ->20, screw terminal ->5, addr = 330\par
+\tab PINCTRL_PIN(17, "MF_ISH_I2C1_SCL"),\par
+\tab PINCTRL_PIN(18, "MF_ISH_GPIO_1"),\tab\tab // 26 pin  ->25, screw terminal ->10, addr = 332\par
+\tab PINCTRL_PIN(19, "MF_ISH_GPIO_5"),\par
+\tab PINCTRL_PIN(20, "MF_ISH_GPIO_9"),\par
+\tab PINCTRL_PIN(21, "MF_ISH_GPIO_0"),\tab\tab // 26 pin  ->24, screw terminal ->9, addr = 335 \par
+\tab PINCTRL_PIN(22, "MF_ISH_GPIO_4"),\tab\tab // 26 pin  ->19, screw terminal ->4, addr = 336 \par
+\tab PINCTRL_PIN(23, "MF_ISH_GPIO_8"),\par
+\tab PINCTRL_PIN(24, "MF_ISH_GPIO_2"),\tab\tab // 26 pin  ->26, screw terminal ->11, addr = 338\par
+\tab PINCTRL_PIN(25, "MF_ISH_GPIO_6"),\par
+\tab PINCTRL_PIN(26, "MF_ISH_I2C1_SDA"),\par
+\};\par
+static const struct pinctrl_pin_desc southeast_pins[] = \{\tab // BASE probably 228\tab\tab 55 gpio's\par
+\tab PINCTRL_PIN(0, "MF_PLT_CLK0"),\par
+\tab PINCTRL_PIN(1, "PWM1"),\par
+\tab PINCTRL_PIN(2, "MF_PLT_CLK1"),\par
+\tab PINCTRL_PIN(3, "MF_PLT_CLK4"),\par
+\tab PINCTRL_PIN(4, "MF_PLT_CLK3"),\par
+\tab PINCTRL_PIN(5, "PWM0"),\par
+\tab PINCTRL_PIN(6, "MF_PLT_CLK5"),\par
+\tab PINCTRL_PIN(7, "MF_PLT_CLK2"),\par
+\par
+\tab PINCTRL_PIN(15, "SDMMC2_D3_CD_B"),\par
+\tab PINCTRL_PIN(16, "SDMMC1_CLK"),\par
+\tab PINCTRL_PIN(17, "SDMMC1_D0"),\par
+\tab PINCTRL_PIN(18, "SDMMC2_D1"),\par
+\tab PINCTRL_PIN(19, "SDMMC2_CLK"),\par
+\tab PINCTRL_PIN(20, "SDMMC1_D2"),\par
+\tab PINCTRL_PIN(21, "SDMMC2_D2"),\par
+\tab PINCTRL_PIN(22, "SDMMC2_CMD"),\par
+\tab PINCTRL_PIN(23, "SDMMC1_CMD"),\par
+\tab PINCTRL_PIN(24, "SDMMC1_D1"),\par
+\tab PINCTRL_PIN(25, "SDMMC2_D0"),\par
+\tab PINCTRL_PIN(26, "SDMMC1_D3_CD_B"),\par
+\par
+\tab PINCTRL_PIN(30, "SDMMC3_D1"),\par
+\tab PINCTRL_PIN(31, "SDMMC3_CLK"),\par
+\tab PINCTRL_PIN(32, "SDMMC3_D3"),\par
+\tab PINCTRL_PIN(33, "SDMMC3_D2"),\par
+\tab PINCTRL_PIN(34, "SDMMC3_CMD"),\par
+\tab PINCTRL_PIN(35, "SDMMC3_D0"),\par
+\par
+\tab PINCTRL_PIN(45, "MF_LPC_AD2"),\par
+\tab PINCTRL_PIN(46, "LPC_CLKRUNB"),\tab\tab // Debug UART TXD on 3-pin con., addr = 274 (not verified)\par
+\tab PINCTRL_PIN(47, "MF_LPC_AD0"),\par
+\tab PINCTRL_PIN(48, "LPC_FRAMEB"),\tab\tab // Debug UART RXD on 3-pin con., addr = 276 (not verified)\par
+\tab PINCTRL_PIN(49, "MF_LPC_CLKOUT1"),\par
+\tab PINCTRL_PIN(50, "MF_LPC_AD3"),\par
+\tab PINCTRL_PIN(51, "MF_LPC_CLKOUT0"),\par
+\tab PINCTRL_PIN(52, "MF_LPC_AD1"),\par
+\par
+\tab PINCTRL_PIN(60, "SPI1_MISO"),\par
+\tab PINCTRL_PIN(61, "SPI1_CSO_B"),\par
+\tab PINCTRL_PIN(62, "SPI1_CLK"),\par
+\tab PINCTRL_PIN(63, "MMC1_D6"),\par
+\tab PINCTRL_PIN(64, "SPI1_MOSI"),\par
+\tab PINCTRL_PIN(65, "MMC1_D5"),\par
+\tab PINCTRL_PIN(66, "SPI1_CS1_B"),\par
+\tab PINCTRL_PIN(67, "MMC1_D4_SD_WE"),\par
+\tab PINCTRL_PIN(68, "MMC1_D7"),\par
+\tab PINCTRL_PIN(69, "MMC1_RCLK"),\par
+\par
+\tab PINCTRL_PIN(75, "USB_OC1_B"),\par
+\tab PINCTRL_PIN(76, "PMU_RESETBUTTON_B"),\par
+\tab PINCTRL_PIN(77, "GPIO_ALERT"),\par
+\tab PINCTRL_PIN(78, "SDMMC3_PWR_EN_B"),\par
+\tab PINCTRL_PIN(79, "ILB_SERIRQ"),\par
+\tab PINCTRL_PIN(80, "USB_OC0_B"),\par
+\tab PINCTRL_PIN(81, "SDMMC3_CD_B"),\par
+\tab PINCTRL_PIN(82, "SPKR"),\par
+\tab PINCTRL_PIN(83, "SUSPWRDNACK"),\par
+\tab PINCTRL_PIN(84, "SPARE_PIN"),\par
+\tab PINCTRL_PIN(85, "SDMMC3_1P8_EN"),\par
+\};\par
+\fs22\par
+}
+ 
