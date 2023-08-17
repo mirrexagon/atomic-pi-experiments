@@ -10,6 +10,11 @@
 
   sound.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    kakoune
+    tmux
+  ];
+
   users.users = {
     mir = {
       isNormalUser = true;
