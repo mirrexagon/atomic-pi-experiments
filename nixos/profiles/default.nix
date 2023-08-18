@@ -17,6 +17,8 @@
   environment.systemPackages = with pkgs; [
     kakoune
     tmux
+    ripgrep
+    fd
   ];
 
   users.users = {

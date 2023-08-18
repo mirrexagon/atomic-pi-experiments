@@ -7,6 +7,9 @@
   # I2C buses) on /dev/i2c-2 at address 0x28.
   # That is the bus and address we expect the BNO055 on.
 
+  # Links to check:
+  # - https://www.kernel.org/doc/html/v5.5/i2c/old-module-parameters.html
+
   environment.systemPackages = with pkgs; [
     pciutils
     usbutils
