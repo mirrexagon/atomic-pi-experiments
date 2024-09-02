@@ -1,5 +1,8 @@
 # Atomic Pi Experiments
 
+## TODO
+- Install using NixOS anywhere
+
 ## Links
 
 ### Official pages
