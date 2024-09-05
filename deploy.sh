@@ -38,14 +38,14 @@ nix copy --to ssh://${address} "${system_closure}"
 
 if [ "$action" != copy ]; then
     echo "Setting closure as current system on $address and activating with $action."
-    command="sudo nix-env -p $profile_dir --set $system_closure && sudo $profile_dir/bin/switch-to-configuration $action"
+    command="nix-env -p $profile_dir --set $system_closure && $profile_dir/bin/switch-to-configuration $action"
 
     if [ -n "$reboot" ]; then
         echo "Will reboot target."
-        command="$command && sudo reboot"
+        command="$command && reboot"
     fi
 
-    ssh -t "$address" "$command"
+    ssh -t "root@$address" "$command"
 fi
 
 echo "Done."
