@@ -3,9 +3,14 @@
 
   inputs = {
     nixpkgs = { url = "nixpkgs/nixos-unstable"; };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs }: {
+  outputs = inputs@{ self, nixpkgs, disko }: {
     overlays.default = self: super: { };
 
     nixosConfigurations =
@@ -39,6 +44,8 @@
 
             (import ./nixos/modules)
             (import ./nixos/profiles)
+
+            disko.nixosModules.disko
 
             rootModule
           ];
